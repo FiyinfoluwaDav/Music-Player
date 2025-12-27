@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AllSongs } from "./components/AllSongs";
 import { MusicPlayer } from "./components/MusicPlayer";
 import { Playlists } from "./components/Playlists";
@@ -13,11 +13,12 @@ function App() {
           <div className="player-section">
             <MusicPlayer />
           </div>
-          <div className="content-section"></div>
-          <Routes>
-            <Route path="/" element={<AllSongs />} />
-            <Route path="/playlists" element={<Playlists />} />
-          </Routes>
+          <div className="content-section">
+            <Routes>
+              <Route path="/" element={<AllSongs />} />
+              <Route path="/playlists" element={<Playlists />} />
+            </Routes>
+          </div>
         </main>
       </div>
     </BrowserRouter>

@@ -510,6 +510,12 @@ body {
   font-size: 1.2rem;
   color: rgba(255, 255, 255, 0.8);
   margin-left: 1rem;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
 }
 
 /* Playlists Styles */
