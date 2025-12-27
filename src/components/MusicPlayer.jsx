@@ -1,11 +1,40 @@
+import { useEffect, useRef } from "react";
 import { useMusic } from "../hooks/useMusic";
 
 export const MusicPlayer = () => {
-  const { currentTrack, formatTime, currentTime, duration } = useMusic();
+  const {
+    currentTrack,
+    formatTime,
+    currentTime,
+    duration,
+    setCurrentTime,
+    setDuration,
+  } = useMusic();
+  const audioRef = useRef(null);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleLoadedMetadata = () => {
+      setDuration(audio.duration);
+    };
+    const handleTimeUpdate = () => {};
+    const handleEnded = () => {};
+
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    return () => {
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    };
+  }, [setDuration, setCurrentTime, currentTrack]);
   return (
     <div className="music-player">
-      <audio />
+      <audio
+        ref={audioRef}
+        src={currentTrack.url}
+        preload="metadata"
+        crossOrigin="anonymous"
+      />
       <div className="track-info">
         {currentTrack ? (
           <>
@@ -28,6 +57,11 @@ export const MusicPlayer = () => {
           //style={{}}
         ></input>
         <span className="time">{formatTime(duration)}</span>
+      </div>
+      <div className="controls">
+        <button className="control-btn">⏮</button>
+        <button className="control-btn play-btn">▶</button>
+        <button className="control-btn">⏭</button>
       </div>
     </div>
   );
