@@ -11,8 +11,22 @@ export const MusicPlayer = () => {
     setDuration,
     prevTrack,
     nextTrack,
+    isPlaying,
+    pause,
+    play,
   } = useMusic();
   const audioRef = useRef(null);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isPlaying) {
+      audio.play().catch((err) => console.error(err));
+    } else {
+      audio.pause();
+    }
+  });
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -64,7 +78,12 @@ export const MusicPlayer = () => {
         <button className="control-btn" onClick={prevTrack}>
           ⏮
         </button>
-        <button className="control-btn play-btn">▶</button>
+        <button
+          className="control-btn play-btn"
+          onClick={() => (isPlaying ? pause() : play())}
+        >
+          {isPlaying ? "⏸" : "▶"}
+        </button>
         <button className="control-btn" onClick={nextTrack}>
           ⏭
         </button>
