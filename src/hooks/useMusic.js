@@ -70,6 +70,22 @@ export const useMusic = () => {
     setCurrentTrackIndex(index);
   };
 
+  const nextTrack = () => {
+    setCurrentTrackIndex((prev) => {
+      const nextIndex = (prev + 1) % allSongs.length;
+      setCurrentTrack(allSongs[nextIndex]);
+      return nextIndex;
+    });
+  };
+
+  const prevTrack = () => {
+    setCurrentTrackIndex((prev) => {
+      const nextIndex = prev === 0 ? allSongs.length - 1 : prev - 1;
+      setCurrentTrack(allSongs[nextIndex]);
+      return nextIndex;
+    });
+  };
+
   const formatTime = (time) => {
     isNaN(time) || time === undefined ? "0:00" : null;
 
@@ -89,5 +105,7 @@ export const useMusic = () => {
     formatTime,
     duration,
     setDuration,
+    nextTrack,
+    prevTrack,
   };
 };

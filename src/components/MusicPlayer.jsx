@@ -9,6 +9,8 @@ export const MusicPlayer = () => {
     duration,
     setCurrentTime,
     setDuration,
+    prevTrack,
+    nextTrack,
   } = useMusic();
   const audioRef = useRef(null);
 
@@ -59,9 +61,13 @@ export const MusicPlayer = () => {
         <span className="time">{formatTime(duration)}</span>
       </div>
       <div className="controls">
-        <button className="control-btn">⏮</button>
+        <button className="control-btn" onClick={prevTrack}>
+          ⏮
+        </button>
         <button className="control-btn play-btn">▶</button>
-        <button className="control-btn">⏭</button>
+        <button className="control-btn" onClick={nextTrack}>
+          ⏭
+        </button>
       </div>
     </div>
   );
