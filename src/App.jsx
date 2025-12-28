@@ -8,9 +8,12 @@ function App() {
   return (
     <BrowserRouter>
       <div className="app">
-        {/* <Navbar /> */}
+        <header className="app-header">
+          <h1>Music Player</h1>
+          <p>The best way to enjoy your music</p>
+        </header>
         <main className="app-main">
-          <div className="player-section">
+          <div className="music-player">
             <MusicPlayer />
           </div>
           <div className="content-section">

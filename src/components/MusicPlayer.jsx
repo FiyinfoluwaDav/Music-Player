@@ -17,6 +17,14 @@ export const MusicPlayer = () => {
   } = useMusic();
   const audioRef = useRef(null);
 
+  const handleTimeChange = (e) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const newTime = parseFloat(e.target.value);
+    audio.currentTime = newTime;
+    setCurrentTime(newTime);
+  };
+
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -35,16 +43,25 @@ export const MusicPlayer = () => {
     const handleLoadedMetadata = () => {
       setDuration(audio.duration);
     };
-    const handleTimeUpdate = () => {};
-    const handleEnded = () => {};
+    const handleTimeUpdate = () => {
+      setCurrentTime(audio.currentTime);
+    };
+    const handleEnded = () => {
+      nextTrack();
+    };
 
     audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
+    audio.addEventListener("ended", handleEnded);
+
     return () => {
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
+      audio.removeEventListener("ended", handleEnded);
     };
   }, [setDuration, setCurrentTime, currentTrack]);
   return (
-    <div className="music-player">
+    <div >
       <audio
         ref={audioRef}
         src={currentTrack.url}
@@ -70,6 +87,7 @@ export const MusicPlayer = () => {
           step="0.1"
           value={currentTime || 0}
           className="progress-bar"
+          onChange={handleTimeChange}
           //style={{}}
         ></input>
         <span className="time">{formatTime(duration)}</span>
