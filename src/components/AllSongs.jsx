@@ -12,11 +12,12 @@ export const AllSongs = () => {
             className={`song-card ${currentTrackIndex === key ? "active" : ""}`}
             onClick={() => handlePlaySong(song, key)}
           >
+            <div className="song-number">{key + 1}</div>
             <div className="song-info">
               <h3 className="song-title">{song.title}</h3>
               <p className="song-artist">{song.artist}</p>
-              <span className="song-duration">{song.duration}</span>
             </div>
+            <span className="song-duration">{song.duration}</span>
 
             <div
               className="play-button"

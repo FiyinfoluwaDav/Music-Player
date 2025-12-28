@@ -14,6 +14,8 @@ export const MusicPlayer = () => {
     isPlaying,
     pause,
     play,
+    volume,
+    setVolume,
   } = useMusic();
   const audioRef = useRef(null);
 
@@ -23,6 +25,11 @@ export const MusicPlayer = () => {
     const newTime = parseFloat(e.target.value);
     audio.currentTime = newTime;
     setCurrentTime(newTime);
+  };
+
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
   };
 
   useEffect(() => {
@@ -35,6 +42,13 @@ export const MusicPlayer = () => {
       audio.pause();
     }
   });
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.volume = volume;
+  }, [volume]);
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -60,8 +74,10 @@ export const MusicPlayer = () => {
       audio.removeEventListener("ended", handleEnded);
     };
   }, [setDuration, setCurrentTime, currentTrack]);
+
+  const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
   return (
-    <div >
+    <div>
       <audio
         ref={audioRef}
         src={currentTrack.url}
@@ -88,7 +104,7 @@ export const MusicPlayer = () => {
           value={currentTime || 0}
           className="progress-bar"
           onChange={handleTimeChange}
-          //style={{}}
+          style={{ "--progress": `${progressPercentage}%` }}
         ></input>
         <span className="time">{formatTime(duration)}</span>
       </div>
@@ -105,6 +121,18 @@ export const MusicPlayer = () => {
         <button className="control-btn" onClick={nextTrack}>
           ⏭
         </button>
+      </div>
+      <div className="volume-container">
+        <span className="volume-icon">🔊</span>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.1"
+          className="volume-bar"
+          onChange={handleVolumeChange}
+          value={volume}
+        />
       </div>
     </div>
   );

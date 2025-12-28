@@ -50,7 +50,6 @@ body {
   margin: 0.5rem 0 0 0;
 }
 
-
 .app-main {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -220,6 +219,26 @@ body {
   background: #059669;
 }
 
+.volume-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.volume-icon {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.volume-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
 
 .volume-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -253,7 +272,7 @@ body {
   padding: 2rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  max-height: 600px;
+  max-height: none;
   overflow-y: auto;
 }
 
@@ -429,12 +448,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 1px solid transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .song-card:hover {
@@ -453,6 +473,8 @@ body {
 }
 
 .song-info {
+  display: flex;
+  align-items: center;
   flex: 1;
 }
 
@@ -489,11 +511,11 @@ body {
 
 /* Playlists Styles */
 .playlists h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: 2rem;
+  font-weight: 700;
   margin: 0 0 1.5rem 0;
-  color: white;
-  text-align: center;
+  color: #f0f0f0;
+  text-align: left;
 }
 
 .create-playlist {
