@@ -1,4 +1,4 @@
-import { useMusic } from "../hooks/useMusic";
+import { useMusic } from "../contexts/MusicContext";
 
 export const AllSongs = () => {
   const { allSongs, handlePlaySong, currentTrackIndex } = useMusic();
@@ -12,29 +12,12 @@ export const AllSongs = () => {
             className={`song-card ${currentTrackIndex === key ? "active" : ""}`}
             onClick={() => handlePlaySong(song, key)}
           >
-            <div className="song-number">{key + 1}</div>
             <div className="song-info">
               <h3 className="song-title">{song.title}</h3>
               <p className="song-artist">{song.artist}</p>
+              <span className="song-duration">{song.duration}</span>
             </div>
-            <span className="song-duration">{song.duration}</span>
-
-            <div
-              className="play-button"
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePlaySong(song, key);
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  handlePlaySong(song, key);
-                }
-              }}
-              aria-label={currentTrackIndex === key ? "Pause" : "Play"}
-            >
+            <div className="play-button">
               {currentTrackIndex === key ? "♪" : "▶"}
             </div>
           </div>
